@@ -1,65 +1,28 @@
-use crate::item::Item;
+use std::fmt::Debug;
 
-#[derive(Debug, PartialEq, Eq, Clone)]
-pub enum Recipes {
-    IronOre,
-    IronIngot,
-    PureIronIngot,
-    SolidSteelIngot,
-    SteelBeam,
-    SteelPipe,
+use macro_lib::recipes;
+
+use crate::item::*;
+
+#[derive(Debug)]
+pub struct Ingredient {
+    pub qtty: u32,
+    pub item: Box<dyn Item>,
 }
 
-impl TryFrom<String> for Recipes {
-    type Error = String;
-
-    fn try_from(value: String) -> Result<Self, Self::Error> {
-        match value.to_lowercase().as_str() {
-            "pure iron ingot" => Ok(Self::PureIronIngot),
-            "solid steel ingot" => Ok(Self::SolidSteelIngot),
-            "steel beam" => Ok(Self::SteelBeam),
-            "steel pipe" => Ok(Self::SteelPipe),
-            _ => Err(format!("{value} is not recognized")),
-        }
-    }
+pub trait Recipe: Debug {
+    fn get_ingredients(&self) -> Vec<Ingredient>;
 }
 
-impl Recipes {
-    pub fn get_ingredients(&self) -> Vec<Item> {
-        match self {
-            Recipes::IronOre => vec![],
-            Recipes::IronIngot => vec![Item::IronOre(30)],
-            Recipes::PureIronIngot => vec![Item::IronOre(35), Item::Water(20)],
-            Recipes::SolidSteelIngot => vec![Item::IronIngot(40), Item::Coal(40)],
-            Recipes::SteelBeam => vec![Item::SteelIngot(60)],
-            Recipes::SteelPipe => vec![Item::SteelIngot(30)],
-        }
-    }
+recipes! {
+    IronIngot: 30 IronOre -> 30 IronIngot
+    PureIronIngot: 35 IronOre 20 Water -> 30 IronIngot
 
-    pub fn get_outputs(&self) -> Vec<Item> {
-        match self {
-            Recipes::IronOre => vec![],
-            Recipes::IronIngot => vec![Item::IronIngot(30)],
-            Recipes::PureIronIngot => vec![Item::IronIngot(65)],
-            Recipes::SolidSteelIngot => vec![Item::SteelIngot(60)],
-            Recipes::SteelBeam => vec![Item::SteelBeam(15)],
-            Recipes::SteelPipe => vec![Item::SteelPipe(20)],
-        }
-    }
-}
+    SteelIngot:
+        40 IronIngot
+        40 Coal
+            -> 60 SteelIngot
+    SteelBeam: 60 SteelIngot -> 15 SteelBeam
+    SteelPipe: 30 SteelIngot -> 20 SteelPipe
 
-
-
-impl Item {
-    pub fn get_recipes(&self) -> Vec<Recipes> {
-        match self {
-            Item::IronOre(_) => vec![],
-            Item::Water(_) => todo!(),
-            Item::IronIngot(_) => todo!(),
-            Item::SteelIngot(_) => todo!(),
-            Item::SteelBeam(_) => todo!(),
-            Item::SteelPipe(_) => todo!(),
-            Item::Coal(_) => todo!(),
-        }
-    }
 }
