@@ -1,5 +1,4 @@
 #![feature(proc_macro_diagnostic)]
-#![feature(log_syntax)]
 use std::vec;
 
 use proc_macro::TokenStream;
@@ -9,7 +8,6 @@ use syn::parse::{Parse, ParseStream};
 use syn::token::Colon;
 use syn::LitInt;
 use syn::{parse_macro_input, Ident, Token};
-
 
 #[derive(Debug)]
 
@@ -119,15 +117,6 @@ struct Item {
     name: Ident,
     recipes: Vec<Ident>,
 }
-
-// items! {
-//     IronOre: _;
-//     Water: _;
-//     Coal: _;
-//     IronIngot: IronIngot PureIronIngot;
-//     SteelBeam: SteelBeam;
-//     SteelPipe: SteelPipe;
-// }
 
 impl Parse for Items {
     fn parse(input: ParseStream) -> syn::Result<Self> {

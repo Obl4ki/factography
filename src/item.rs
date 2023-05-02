@@ -1,75 +1,56 @@
 use std::fmt::Debug;
 
-use crate::recipe as r;
+use crate::recipe::{Ingredient, Recipe};
 use macro_lib::items;
-use r::Recipe;
 
-pub trait Item: Debug {
-    fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>>;
+// pub trait Item: Debug {
+//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>>;
+// }
+
+// items! {
+//     IronOre: _;
+//     Water: _;
+//     Coal: _;
+//     CopperOre: _;
+//     IronIngot: IronIngot PureIronIngot;
+//     SteelIngot: SteelIngot;
+//     SteelBeam: SteelBeam;
+//     SteelPipe: SteelPipe;
+// }
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Item {
+    Crafted(CraftableItem),
+    Natural(ResourceItem),
 }
 
-items! {
-    IronOre: _;
-    Water: _;
-    Coal: _;
-    IronIngot: IronIngot PureIronIngot;
-    SteelIngot: SteelIngot;
-    SteelBeam: SteelBeam;
-    SteelPipe: SteelPipe;
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ResourceItem {
+    IronOre,
+    CopperOre,
+    Water,
+    Coal,
 }
 
-// #[derive(Debug)]
-// pub struct IronOre;
-// impl Item for IronOre {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![]
-//     }
-// }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CraftableItem {
+    IronIngot,
+    SteelIngot,
+    SteelPipe,
+    SteelBeam,
+}
 
-// #[derive(Debug)]
-// pub struct Water;
-// impl Item for Water {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![]
-//     }
-// }
+impl CraftableItem {
+    pub fn get_all_recipes(&self) -> Vec<Recipe> {
+        match self {
+            CraftableItem::IronIngot => vec![Recipe::PureIronIngot, Recipe::IronIngot],
+            CraftableItem::SteelIngot => vec![Recipe::SteelIngot, Recipe::SolidSteelIngot],
+            CraftableItem::SteelPipe => vec![Recipe::SteelPipe],
+            CraftableItem::SteelBeam => vec![Recipe::SteelBeam],
+        }
+    }
+}
 
-// #[derive(Debug)]
-// pub struct IronIngot;
-// impl Item for IronIngot {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![Box::new(r::PureIronIngot)]
-//     }
-// }
+// impl CraftableItem {
 
-// #[derive(Debug)]
-// pub struct Coal;
-// impl Item for Coal {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![]
-//     }
-// }
-
-// #[derive(Debug)]
-// pub struct SteelIngot;
-// impl Item for SteelIngot {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![Box::new(r::SolidSteelIngot)]
-//     }
-// }
-
-// #[derive(Debug)]
-// pub struct SteelBeam;
-// impl Item for SteelBeam {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![Box::new(r::SteelBeam)]
-//     }
-// }
-
-// #[derive(Debug)]
-// pub struct SteelPipe;
-// impl Item for SteelPipe {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>> {
-//         vec![Box::new(r::SteelPipe)]
-//     }
 // }
