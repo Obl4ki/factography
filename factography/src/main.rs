@@ -1,12 +1,5 @@
-#![allow(unused_imports)]
-mod item;
-mod recipe;
-
-use item::CraftableItem;
-use recipe::Ingredient;
-use recipe::Recipe;
-
-use crate::item::Item;
+use factography_core::item::{CraftableItem, Item};
+use factography_core::recipe::Recipe;
 
 fn main() -> Result<(), String> {
     let target_item = CraftableItem::SteelBeam;

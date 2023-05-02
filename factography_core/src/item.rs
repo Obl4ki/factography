@@ -1,18 +1,6 @@
 use std::fmt::Debug;
 
-use crate::recipe::{Ingredient, Recipe};
-use macro_lib::items;
-
-// items! {
-//     IronOre: _;
-//     Water: _;
-//     Coal: _;
-//     CopperOre: _;
-//     IronIngot: IronIngot PureIronIngot;
-//     SteelIngot: SteelIngot;
-//     SteelBeam: SteelBeam;
-//     SteelPipe: SteelPipe;
-// }
+use crate::recipe::Recipe;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Item {
@@ -46,7 +34,3 @@ impl CraftableItem {
         }
     }
 }
-
-// impl CraftableItem {
-
-// }

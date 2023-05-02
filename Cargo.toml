@@ -1,4 +1,9 @@
 [workspace]
 resolver = "2"
 
-members = ["factography", "macro_lib"]
+members = [
+    "factography_core",
+    "factography_define",
+    "factography_macros",
+    "factography",
+]
