@@ -11,13 +11,23 @@ use crate::item::Item;
 fn main() -> Result<(), String> {
     let target_item = CraftableItem::SteelBeam;
     let recipe_paths = get_recipe_paths(target_item);
-    println!("{recipe_paths:#?}");
+
+    for (path_idx, path) in recipe_paths.iter().enumerate() {
+        println!("-------------");
+        println!("Path {path_idx}:");
+        for recipe in path {
+            let ingredients = recipe.get_ingredients();
+            println!("\tRecipe: {recipe:?}\tIngredients: {ingredients:?}")
+        }
+    }
+
     Ok(())
 }
 
 pub fn get_recipe_paths(item: CraftableItem) -> Vec<Vec<Recipe>> {
     let mut all_recipe_paths = vec![item.get_all_recipes()];
     let mut full_paths = vec![];
+    
     while let Some(mut current_path) = all_recipe_paths.pop() {
         let recipe_to_unroll = current_path.pop().unwrap();
         let ingredients_for_recipe = recipe_to_unroll.get_ingredients();

@@ -3,9 +3,6 @@ use std::fmt::Debug;
 use crate::recipe::{Ingredient, Recipe};
 use macro_lib::items;
 
-// pub trait Item: Debug {
-//     fn get_all_recipes(&self) -> Vec<Box<dyn Recipe>>;
-// }
 
 // items! {
 //     IronOre: _;

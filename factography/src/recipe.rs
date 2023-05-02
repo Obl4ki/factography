@@ -15,6 +15,20 @@ impl Ingredient {
     }
 }
 
+// recipes! {
+//     IronIngot: 30 IronOre -> 30 IronIngot
+//     PureIronIngot: 35 IronOre 20 Water -> 30 IronIngot
+//     IronAlloyIngot: 20 IronOre 20 CopperOre -> 50 IronIngot
+
+//     SteelIngot:
+//         40 IronIngot
+//         40 Coal
+//             -> 60 SteelIngot
+
+//     SteelBeam: 60 SteelIngot -> 15 SteelBeam
+//     SteelPipe: 30 SteelIngot -> 20 SteelPipe
+// }
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Recipe {
     IronIngot,
@@ -64,7 +78,9 @@ impl Recipe {
             Recipe::IronIngot => (30, CraftableItem::IronIngot),
         }
     }
+}
 
+impl Recipe {
     pub fn contains_natural_items(&self) -> bool {
         for ingredient in self.get_ingredients() {
             if let Item::Natural(_) = ingredient.item {
@@ -74,24 +90,3 @@ impl Recipe {
         false
     }
 }
-
-// CraftableItem::SteelIngot => {
-//     vec![I::new(40, CItem::IronIngot), I::new(40, CItem::Coal)]
-// }
-// CraftableItem::SteelPipe => vec![I::new(30, CItem::SteelIngot)],
-// CraftableItem::SteelBeam => vec![I::new(60, CItem::SteelIngot)],
-// CraftableItem::IronIngot => vec![I::new(35, CItem::IronO)],
-
-// recipes! {
-//     IronIngot: 30 IronOre -> 30 IronIngot
-//     PureIronIngot: 35 IronOre 20 Water -> 30 IronIngot
-//     IronAlloyIngot: 20 IronOre 20 CopperOre -> 50 IronIngot
-
-//     SteelIngot:
-//         40 IronIngot
-//         40 Coal
-//             -> 60 SteelIngot
-
-//     SteelBeam: 60 SteelIngot -> 15 SteelBeam
-//     SteelPipe: 30 SteelIngot -> 20 SteelPipe
-// }
