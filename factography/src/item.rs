@@ -3,7 +3,6 @@ use std::fmt::Debug;
 use crate::recipe::{Ingredient, Recipe};
 use macro_lib::items;
 
-
 // items! {
 //     IronOre: _;
 //     Water: _;

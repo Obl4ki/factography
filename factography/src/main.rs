@@ -27,7 +27,7 @@ fn main() -> Result<(), String> {
 pub fn get_recipe_paths(item: CraftableItem) -> Vec<Vec<Recipe>> {
     let mut all_recipe_paths = vec![item.get_all_recipes()];
     let mut full_paths = vec![];
-    
+
     while let Some(mut current_path) = all_recipe_paths.pop() {
         let recipe_to_unroll = current_path.pop().unwrap();
         let ingredients_for_recipe = recipe_to_unroll.get_ingredients();
