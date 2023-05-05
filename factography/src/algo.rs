@@ -1,9 +1,11 @@
 use crate::level::Level;
 use crate::path::Path;
 use crate::paths::Paths;
-use entities::item::{CraftableItem, Item};
-
-pub fn branch_paths_by_item(paths: Paths, item: CraftableItem) -> Paths {
+use entities::{
+    item::{CraftableItem, Item},
+    recipes::{Ingredient, Recipe},
+};
+fn branch_paths_by_item(paths: Paths, item: CraftableItem) -> Paths {
     let mut new_paths = vec![];
     let variants = item.get_all_recipes();
 
@@ -24,7 +26,7 @@ pub fn branch_paths_by_item(paths: Paths, item: CraftableItem) -> Paths {
     Paths::new(new_paths)
 }
 
-pub fn unroll_path(path: Path) -> Paths {
+fn unroll_path(path: Path) -> Paths {
     let last_level = path.levels.last().unwrap().to_owned();
 
     let mut result_paths = vec![path];
@@ -67,4 +69,17 @@ pub fn get_recipe_paths(item: CraftableItem) -> Paths {
     }
 
     Paths::new(terminal_paths)
+}
+
+pub fn recipes_into_ingredients(path: Path) -> Vec<Vec<Ingredient>> {
+    let mut ing_path = vec![];
+    for levels in path.levels {
+        let ing_level = levels
+            .recipes
+            .into_iter()
+            .flat_map(|rec| rec.get_ingredients())
+            .collect();
+        ing_path.push(ing_level);
+    }
+    ing_path
 }
