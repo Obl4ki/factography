@@ -22,17 +22,17 @@ pub enum Recipe {
     SteelIngot,
     SteelBeam,
     SteelPipe,
+    Gizmo,
 }
 
 impl Recipe {
     pub fn get_ingredients(&self) -> Vec<Ingredient> {
         match self {
-            Recipe::PureIronIngot => {
-                vec![
-                    Ingredient::new(35, Item::Natural(ResourceItem::IronOre)),
-                    Ingredient::new(20, Item::Natural(ResourceItem::Water)),
-                ]
-            }
+            Recipe::PureIronIngot => vec![
+                Ingredient::new(35, Item::Natural(ResourceItem::IronOre)),
+                Ingredient::new(20, Item::Natural(ResourceItem::Water)),
+            ],
+
             Recipe::SolidSteelIngot => vec![
                 Ingredient::new(40, Item::Crafted(CraftableItem::IronIngot)),
                 Ingredient::new(40, Item::Natural(ResourceItem::Coal)),
@@ -50,6 +50,10 @@ impl Recipe {
                 Item::Crafted(CraftableItem::SteelIngot),
             )],
             Recipe::IronIngot => vec![Ingredient::new(30, Item::Natural(ResourceItem::IronOre))],
+            Recipe::Gizmo => vec![
+                Ingredient::new(30, Item::Crafted(CraftableItem::SteelBeam)),
+                Ingredient::new(30, Item::Crafted(CraftableItem::SteelPipe)),
+            ],
         }
     }
 
@@ -61,6 +65,7 @@ impl Recipe {
             Recipe::SteelBeam => (15, CraftableItem::SteelBeam),
             Recipe::SteelPipe => (20, CraftableItem::SteelPipe),
             Recipe::IronIngot => (30, CraftableItem::IronIngot),
+            Recipe::Gizmo => (30, CraftableItem::Gizmo),
         }
     }
 }
@@ -75,3 +80,17 @@ impl Recipe {
         false
     }
 }
+
+// recipes! {
+//     IronIngot: 30 IronOre -> 30 IronIngot
+//     PureIronIngot: 35 IronOre 20 Water -> 30 IronIngot
+//     IronAlloyIngot: 20 IronOre 20 CopperOre -> 50 IronIngot
+
+//     SteelIngot:
+//         40 IronIngot
+//         40 Coal
+//             -> 60 SteelIngot
+
+//     SteelBeam: 60 SteelIngot -> 15 SteelBeam
+//     SteelPipe: 30 SteelIngot -> 20 SteelPipe
+// }

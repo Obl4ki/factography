@@ -1,5 +1,5 @@
 [package]
-name = "factography_macros"
+name = "macros"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,8 +7,6 @@ edition = "2021"
 proc-macro = true
 
 [dependencies]
-factography_core = { path = "../factography_core" }
-
 syn = { version = "*", features = ["extra-traits", "full"] }
 quote = "*"
 proc-macro2 = "*"

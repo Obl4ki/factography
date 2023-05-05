@@ -6,6 +6,5 @@ edition = "2021"
 
 [dependencies]
 itertools = "0.10.5"
-factography_macros = { path = "../factography_macros" }
-factography_core = { path = "../factography_core" }
-factography_define = { path = "../factography_define" }
+macros = { path = "../macros" }
+entities = { path = "../entities" }

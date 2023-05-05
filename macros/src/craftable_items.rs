@@ -49,7 +49,7 @@ impl Parse for Items {
     }
 }
 
-pub fn items_macro(input: TokenStream) -> TokenStream {
+pub fn craftable_items_macro(input: TokenStream) -> TokenStream {
     let Items { items } = parse_macro_input!(input as Items);
 
     let mut ast = quote!();

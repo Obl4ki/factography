@@ -1,6 +1,5 @@
+use crate::recipes::Recipe;
 use std::fmt::Debug;
-
-use crate::recipe::Recipe;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Item {
@@ -22,6 +21,7 @@ pub enum CraftableItem {
     SteelIngot,
     SteelPipe,
     SteelBeam,
+    Gizmo,
 }
 
 impl CraftableItem {
@@ -31,6 +31,31 @@ impl CraftableItem {
             CraftableItem::SteelIngot => vec![Recipe::SteelIngot, Recipe::SolidSteelIngot],
             CraftableItem::SteelPipe => vec![Recipe::SteelPipe],
             CraftableItem::SteelBeam => vec![Recipe::SteelBeam],
+            CraftableItem::Gizmo => vec![Recipe::Gizmo],
         }
     }
 }
+
+// natural_items! {
+//     IronOre,
+//     Water,
+//     Coal,
+//     CopperOre,
+// }
+
+// craftable_items! {
+//     IronIngot: IronIngot PureIronIngot;
+//     SteelIngot: SteelIngot;
+//     SteelBeam: SteelBeam;
+//     SteelPipe: SteelPipe;
+
+// items! {
+//     IronOre: _;
+//     Water: _;
+//     Coal: _;
+//     CopperOre: _;
+//     IronIngot: IroIngot PureIronIngot;
+//     SteelIngot: SteelIngot;
+//     SteelBeam: SteelBeam;
+//     SteelPipe: SteelPipe;
+// }

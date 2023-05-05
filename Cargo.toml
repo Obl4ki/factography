@@ -2,8 +2,8 @@
 resolver = "2"
 
 members = [
-    "factography_core",
-    "factography_define",
-    "factography_macros",
+    "core",
+    "entities",
+    "macros",
     "factography",
 ]
