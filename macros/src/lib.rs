@@ -1,5 +1,3 @@
-#![feature(proc_macro_diagnostic)]
-
 use proc_macro::TokenStream;
 mod craftable_items;
 mod recipes;
